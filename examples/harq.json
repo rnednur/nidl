@@ -1,0 +1,12 @@
+{
+  "apiVersion":"network.ai/v1","kind":"NetworkWorkflow",
+  "metadata":{"name":"ran-harq-degradation","version":"1.0.0","owner":"ran-performance"},
+  "parameters":{"market":{"type":"market_ref","required":true},"min_users":{"type":"integer","default":100}},
+  "triggers":[{"type":"schedule","cron":"*/15 * * * *","timezone":"America/New_York"}],
+  "steps":[
+    {"id":"kpis","uses":"data.inline@1","with":{"rows":[{"cell_id":"A1","harq_failure_rate":0.22,"throughput_delta_pct":-40,"estimated_users":500},{"cell_id":"A2","harq_failure_rate":0.02,"throughput_delta_pct":-5,"estimated_users":100}]}},
+    {"id":"detect","uses":"analytics.rules@1","needs":["kpis"],"with":{"source":"${steps.kpis.rows}","all":[{"field":"harq_failure_rate","op":"gt","value":0.15},{"field":"throughput_delta_pct","op":"lt","value":-30}]}},
+    {"id":"impact","uses":"network.impact@1","needs":["detect"],"with":{"cells":"${steps.detect.rows}"}},
+    {"id":"incident","uses":"incident.upsert@1","needs":["impact"],"with":{"key":"ran_harq_cell_episode","evidence":"${steps.impact.result}","severity":3}}
+  ],"outputs":{"incident":"${steps.incident.id}","impact":"${steps.impact.result}"},"presentation_ref":"ran.harq.detail@1"
+}

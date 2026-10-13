@@ -1,0 +1,13 @@
+{
+  "apiVersion": "network.ai/v1",
+  "kind": "PresentationDefinition",
+  "metadata": {"name": "ran.harq.detail", "version": "1.0.0"},
+  "components": [
+    {"type": "metric_cards", "items": [
+      {"label": "Affected users", "field": "impact.estimated_users", "format": "integer"},
+      {"label": "Affected cells", "field": "impact.affected_cells", "format": "integer"}
+    ]},
+    {"type": "ranked_table", "source": "impact.evidence", "columns": ["cell_id", "harq_failure_rate", "throughput_delta_pct"]},
+    {"type": "investigation_link", "field": "incident"}
+  ]
+}

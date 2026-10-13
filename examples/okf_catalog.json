@@ -1,0 +1,12 @@
+{
+  "ran-harq-watch@1": {
+    "digest": "sha256:example-ran-harq-watch-v1",
+    "permissions": ["starrocks:read", "incident:write"],
+    "metadata": {"name": "RAN HARQ watch", "owner": "ran-performance"}
+  },
+  "cross-domain-rca@1": {
+    "digest": "sha256:example-cross-domain-rca-v1",
+    "permissions": ["incident:read", "topology:read", "alarms:read"],
+    "metadata": {"name": "Cross-domain RCA", "owner": "network-intelligence"}
+  }
+}
