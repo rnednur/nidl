@@ -4,6 +4,8 @@ NIDL is an open-source framework for defining, validating, executing, and operat
 
 Version 0.4 adds Temporal-backed durable execution to the Hermes-inspired personal-agent and deterministic NIDL runtime. It is a functional local control plane and worker stack; see **Known gaps** below for production boundaries.
 
+The prioritized implementation backlog and completion criteria are maintained in [TODO.md](TODO.md).
+
 ## Run locally
 
 NIDL requires Python 3.11 or newer.
